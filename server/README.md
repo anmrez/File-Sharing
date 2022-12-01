@@ -11,7 +11,9 @@ To run using 'npm', use the commands:
     npm run start
 
 To run using 'docker', use the command
-  - docker run -p 5010:5010 -d YOUR_DOCKER_IMAGE
+
+    docker run -p 5010:5010 -d YOUR_DOCKER_IMAGE
+
 
 
 'mysql' is used as the database
