@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve" class='stroke-main'>
+	<line fill="none"  stroke-width="12" stroke-linecap="round" stroke-miterlimit="10" x1="208.78" y1="180.58" x2="208.78" y2="380.92"/>
+	<line fill="none"  stroke-width="12" stroke-linecap="round" stroke-miterlimit="10" x1="303.22" y1="180.58" x2="303.22" y2="380.92"/>
+	<line fill="none"  stroke-width="12" stroke-linecap="round" stroke-miterlimit="10" x1="133.91" y1="143.48" x2="378.09" y2="143.48"/>
+	<path fill="none" stroke-width="12" stroke-linecap="round" stroke-miterlimit="10" d="M169.65,143.48v251.37c0,9.93,8.05,17.98,17.98,17.98h136.74c9.93,0,17.98-8.05,17.98-17.98V143.48"/>
+	<path fill="none" stroke-width="12" stroke-linecap="round" stroke-miterlimit="10" d="M208.78,143.48v-25.8c0-4.62,3.75-8.37,8.37-8.37h77.7c4.62,0,8.37,3.75,8.37,8.37v25.8"/>
+</svg>

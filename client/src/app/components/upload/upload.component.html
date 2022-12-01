@@ -1,0 +1,74 @@
+<section
+  *ngIf="isUpload"
+  id="uploadScreen"
+  class="w-full h-full bg-Omain2 left-0 top-0 absolute z-10"
+  (click)="clickScreen( $event )" 
+>
+
+
+  <form 
+    (submit)="onSubmit( $event )"
+    class="w-[90%] lg:w-[700px] px-6 py-4 space-y-3 bg-main rounded border-b-4 border-r-4 border-main3 translate-x-[-50%] translate-y-[-50%] left-[50%] top-[50%] absolute"
+  >
+  
+    <head class="flex justify-between"> 
+      <h1 class="font-bold "> Upload file </h1>
+      <button type="button" (click)="hidden()" class="flex justify-center items-center w-[40px] h-[40px] bg-pink-dark font-bold rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink" >
+        X 
+      </button>
+    </head>
+    
+    <section class="flex flex-col lg:flex-row items-center lg:justify-between " >
+      <label for=""> File: </label>
+      <input (change)="changeFile( $event )" type="file" name="file" id="uploadFile" class="hidden">
+      <section class="lg:w-[330px] flex ">
+        <span class="block w-[100px] h-[35px] lg:w-[75px] lg:h-[28px] px-2 cursor-pointer text-center text-base lg:text-sm font-bold bg-pink-dark  rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink" (click)="chooseFile()">
+          choose
+        </span>
+        <span id="choosedFileSection" class="hidden flex justify-center items-center ml-3 bg-main3 rounded px-2" >
+          <svg version="1.2" baseProfile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28px" viewBox="0 0 50 50" xml:space="preserve">
+            <polygon class="fill-white opacity-90" stroke="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="14,10 26,10 36,20 36,40 14,40 "/>
+          </svg>
+          <p id="choosedFileName" class="text-base mx-2"> me.png </p>
+        </span>
+      </section>
+    </section>
+
+    <section class="flex flex-col lg:flex-row items-center lg:justify-between " >
+      <label for=""> Edit name: </label>
+      <input type="text" name="name" id="uploadFileInputName" class="w-[90%] lg:w-[330px] px-2 rounded bg-main3 focus:outline-none text-center" placeholder="">
+    </section>
+    
+    <section class="flex flex-col lg:flex-row items-center lg:justify-between " >
+      <label for=""> Description: </label>
+      <textarea name="description" class="w-[90%] lg:w-[330px] h-[100px] px-2 rounded bg-main3 focus:outline-none" placeholder="not necessary"></textarea>
+    </section>
+
+
+    <section class="flex flex-col lg:flex-row items-center lg:justify-between " >
+      <label for=""> Number downloads: </label>
+      <input type="phone" name="number_downloads" class="w-[60px] px-2 rounded bg-main3 focus:outline-none text-center" placeholder="∞" (input)="validateInput( $event.target )">
+    </section>
+    
+
+    <section class="flex flex-col lg:flex-row items-center lg:justify-between " >
+      <label for="" class="flex items-end space-x-3"> 
+        <p>
+          Time storage: 
+        </p>
+        <p class="text-sm opacity-90">
+          (in hour)
+        </p>
+      </label>
+      <input type="phone" name="storage_hour" class="w-[60px] px-2 rounded bg-main3 focus:outline-none text-center" placeholder="∞" (input)="validateInput( $event.target )">
+    </section>
+
+
+    <section class="flex justify-around" >
+      <button type="button" class="px-4 py-2 my-2 bg-pink-dark font-bold rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink" (click)="hidden()" > cancel </button>
+      <button type="submit" class="px-4 py-2 my-2 bg-pink-dark font-bold rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink" placeholder="submit"> submit </button>
+    </section>
+
+  </form>
+
+</section>

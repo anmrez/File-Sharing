@@ -1,0 +1,14 @@
+
+
+<section>
+  <p *ngIf="isLongContent"  class="max-h-[48px] h-full truncate max-w-[300px]"
+    (mouseenter) ="isMouseEnter = true" 
+    (mouseleave) ="mouseLeave()"
+  >
+    {{ shortContent }}
+  </p>
+
+  <p *ngIf="!isLongContent"  class="max-h-[48px] h-full truncate max-w-[300px]" >
+    {{ content }}
+  </p>
+</section>

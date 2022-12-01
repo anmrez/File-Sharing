@@ -1,0 +1,176 @@
+
+<alert></alert>
+<upload></upload>
+
+<section 
+  *ngIf="isConnected === true"
+  (window:resize)="onResize()"
+  class="max-w-[90%] 2xl:max-w-[60%] mx-auto py-6"
+> 
+
+  <h1 *ngIf="!isFiles " class="text-center text-2xl translate-x-[-50%] left-[50%] top-[40%] absolute" > Not files! </h1>
+
+  <section class="w-full text-center text-sm opacity-80 translate-x-[-50%] left-[50%] bottom-[2%] absolute" >
+    The data is updated every 10 seconds
+  </section>
+
+  <!-- FILES desctop -->
+  <table 
+    *ngIf="isFiles && !isMobile" 
+    mat-table [dataSource]="files" 
+    class="table w-full space-y-3" 
+    >
+
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef class="text-center" > Name </th>
+      <td mat-cell *matCellDef="let file"> {{ file.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef class="text-center w-[300px]" > Description </th>
+      <td mat-cell *matCellDef="let file" class="text-left text-sm opacity-80">
+        <!-- {{ file.description }}  -->
+        <descriptionFile [content]="file.description" ></descriptionFile>
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="Number downloads">
+      <th mat-header-cell *matHeaderCellDef class="text-center" > Number downloads </th>
+      <td mat-cell *matCellDef="let file; let i = index" > 
+        <infinityIcon [data]="file.number_downloads" class="w-full flex justify-center" ></infinityIcon> 
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="Store time" class="text-center" >
+      <th mat-header-cell *matHeaderCellDef class="text-center" > Store time </th>
+      <td mat-cell *matCellDef="let file; let i = index"> 
+        <!-- {{ timeFile[i] }}  -->
+        <infinityIcon [data]="timeFile[i]" class="w-full flex justify-center" ></infinityIcon> 
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="Download">
+      <th mat-header-cell *matHeaderCellDef class="text-center" >  </th>
+      <td mat-cell *matCellDef="let file"> 
+        <downloadButton [fileName]="file.name" ></downloadButton> 
+      </td>
+    </ng-container>
+    
+    <ng-container matColumnDef="Delete">
+      <th mat-header-cell *matHeaderCellDef class="text-center" class="w-[60px]" > 
+        <!-- <updateButton [updateFiles]="updateFiles" ></updateButton>  -->
+      </th>
+      <td mat-cell *matCellDef="let file" class="relative"> <deleteButton [fileName]="file.name" ></deleteButton> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-main border-b-4 border-main2"></tr>
+    <tr mat-row *matRowDef="let file; columns: displayedColumns;" class="bg-main border-b-4 border-main2 text-center hover:bg-main3" ></tr>
+  </table>
+
+
+  <!-- FILE mobile -->
+  <ul *ngIf="isMobile" id="conteinerFilesOnMobile" class="text-base overflow-auto">
+    <li class="flex justify-between w-full bg-main px-4 py-2 mb-3 text-center font-bold">
+      <p class="w-1/3">
+        Name:
+      </p>
+      <p class="w-1/3">
+        Downloads:
+      </p>
+      <p class="w-1/3">
+        Time:
+      </p>
+    </li>
+    <li 
+      *ngFor="let file of files; let i = index"
+      (click)="showFileOnMobile( i + 1 )"
+      class="w-full bg-main px-4 py-2 mb-3 text-center"
+    >
+      <section class="h-[40px] flex justify-between items-center">
+        <p class="w-1/3">
+          {{ file.name }}
+        </p>
+        <p class="w-1/3">
+          <infinityIcon [data]="file.number_downloads" class="w-full flex justify-center" ></infinityIcon> 
+        </p>
+        <p class="w-1/3">
+          <infinityIcon [data]="timeFile[i]" class="w-full flex justify-center" ></infinityIcon> 
+        </p>
+      </section>
+      <section id="fileOptions" class="h-0 overflow-hidden transition duration-300">
+        <section *ngIf="file.description !== ''" class="flex space-x-3">
+          <p class="w-1/3"> description: </p>
+          <p class="w-2/3" > {{ file.description }} </p>
+        </section>
+        <section class="flex justify-evenly my-3">
+          <deleteButton [fileName]="file.name" [isMobile]="true" ></deleteButton>
+          <downloadButton [fileName]="file.name" [isMobile]="true" ></downloadButton>
+          <!-- <button class="px-4 py-2 bg-pink-dark font-bold text-sm rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink"> delete </button> -->
+          <!-- <button class="px-4 py-2 bg-pink-dark font-bold text-sm rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink"> download </button> -->
+        </section>
+      </section>
+    </li>
+  </ul>
+
+
+
+  <!-- UPLOAD FILE desctop -->
+  <!-- <section *ngIf="!isMobile" class="text-center translate-x-[-50%] left-[50%] bottom-[5%] absolute" >
+    To upload a file: 
+    <button 
+      class="px-2 bg-pink-dark font-bold rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink"
+      (click)="showUpload()"
+    >
+      choose file
+    </button>
+    or drag in drop file
+  </section> -->
+
+
+  <!-- UPLOAD FILE mobile -->
+  <!-- <section *ngIf="isMobile" class="text-center translate-x-[-50%] left-[50%] bottom-[5%] absolute">
+    <button 
+      class="px-4 py-2 bg-pink-dark font-bold rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink"
+      (click)="showUpload()"
+    >
+      Upload file
+    </button>
+  </section> -->
+
+  <section class="text-center translate-x-[-50%] left-[50%] bottom-[5%] absolute">
+    <button 
+      class="px-4 py-2 bg-pink-dark font-bold rounded border-b-4 border-r-4 border-[#5c0017] hover:bg-pink"
+      (click)="showUpload()"
+    >
+      Upload file
+    </button>
+  </section>
+
+</section>
+
+
+<!-- LOADING -->
+<section *ngIf="isConnected === 'loading'" class="flex items-center justify-center space-x-3 translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] absolute">
+  <svg width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="animate-spin">
+    <path class='fill-main3' fill-rule="evenodd" clip-rule="evenodd" d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
+    <path class='fill-pink drop-shadow-pink' stroke-linecap="round" d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z"/>
+  </svg>
+  <p class="text-2xl opacity-90">
+    loading...
+  </p>
+</section>
+
+
+<!-- available -->
+<section *ngIf="!isConnected" class="max-w-[60%] mx-auto py-6 text-center translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] absolute" >
+  <section class="flex items-center space-x-3"> 
+    <svg width="24px" height="24px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="none" class="">
+      <path fill="#ff0000" d="M12.866 3l9.526 16.5a1 1 0 0 1-.866 1.5H2.474a1 1 0 0 1-.866-1.5L11.134 3a1 1 0 0 1 1.732 0zm-8.66 16h15.588L12 5.5 4.206 19zM11 16h2v2h-2v-2zm0-7h2v5h-2V9z"/>
+    </svg>
+    <h1 class=" text-2xl " > The server is not available  </h1>
+  </section>
+</section>
+
+
+
+<!-- <button (click)="refresh()" > refetch </button> -->

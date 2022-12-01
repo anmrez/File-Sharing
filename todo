@@ -1,0 +1,19 @@
+back:
++ remove file from DB
++ add rest api 'download file'
++ add rest api 'upload file'
+- add 'change password'
+- add 'size limit'
+- delete file if 'not found'
+- проверка времени файла перед скачиванием
+
+
+front:
++ infinity animate
++ show store time file
++ delete file
++ decomposition 'menu component'
++ solve the problem with 'alert'
+- add 'drag in drop'
++ add mobile design
++ close uload from key 'esc'
